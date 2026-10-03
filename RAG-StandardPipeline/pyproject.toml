@@ -1,5 +1,5 @@
 [project]
-name = "rag-dataingestionpipeline"
+name = "rag-standard-pipeline"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
-rag-dataingestionpipeline = "rag_dataingestionpipeline:main"
+rag-standard-pipeline = "rag_dataingestionpipeline:main"
 
 [build-system]
 requires = ["uv_build>=0.12.22,<0.13.0"]

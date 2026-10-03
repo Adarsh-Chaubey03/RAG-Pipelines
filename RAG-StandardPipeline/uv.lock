@@ -1574,7 +1574,7 @@ wheels = [
 ]
 
 [[package]]
-name = "rag-dataingestionpipeline"
+name = "rag-standard-pipeline"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
