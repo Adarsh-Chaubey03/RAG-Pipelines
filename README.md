@@ -9,11 +9,12 @@ The repository is organized into two focused pipelines:
 
 ```text
 RAG-Pipelines/
+|-- RAG-WithCorePython/     # Standard RAG with Core Python
 |-- RAG-StandardPipeline/   # Document loading, chunking, embeddings, vector store, and retrieval
-`-- RAG-LLM/                # Standard RAG plus prompt construction and LLM-generated answers
+|-- RAG-LLM/                # Standard RAG plus prompt construction and LLM-generated answers
 ```
 
-### [RAG Standard Pipeline](RAG-StandardPipeline/README.md)
+### [RAG Standard Pipeline With LangChain](RAG-StandardPipeline/README.md)
 
 The standard pipeline covers document ingestion through vector-store retrieval.
 It is useful when you want to inspect or reuse the retrieved context without
