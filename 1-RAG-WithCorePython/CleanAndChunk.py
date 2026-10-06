@@ -1,11 +1,13 @@
 import re
 
+
+# Clean Text 
 def clean_text(text):
-    text = re.sub(r'\s+', ' ', text)
-    text = re.sub(r'[^\w\s.,!?-]', '', text)
-    return text.strip()
+    text=re.sub(r'\s+',' ',text)       
+    text=re.sub(r'[^\w\s.,!?-]',' ',text)        
+    return text.strip()      
 
-
+# Clean Text -> Chunk Text
 def create_chunks(text, chunk_size=500, overlap=100, source="doc.txt"):
     text = clean_text(text)
 
@@ -21,6 +23,7 @@ def create_chunks(text, chunk_size=500, overlap=100, source="doc.txt"):
         end = min(start + chunk_size, len(text))
         chunk = text[start:end]
 
+# Add metadata
         chunks.append({
             "chunk_id": chunk_id,
             "text": chunk,
