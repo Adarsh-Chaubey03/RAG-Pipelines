@@ -1,4 +1,4 @@
-# RAG — Quick Notes
+# RAG          (Retrieval-Augmented Generation)
 
 ## RAG Pipeline
 
@@ -123,3 +123,88 @@ Basic idea:
 ```text
 Text → FastEmbed → Vector
 ```
+## 5. In-Memory Vector Indexing
+
+### Basic Concept
+
+Store chunk embeddings in memory so that a query can be compared against them.
+
+```text
+Chunks
+   ↓
+Embeddings
+   ↓
+Vector Index
+   ↓
+Query Embedding
+   ↓
+Similarity Search
+   ↓
+Top-K Relevant Chunks
+```
+### What do we store?
+Suppose we have:
+```
+vectors = [    [0.1, 0.2, 0.3],    [0.8, 0.1, 0.4],    [0.2, 0.9, 0.1]]
+```
+
+Each vector belongs to a chunk:
+
+Vector 0 → Chunk 0
+
+Vector 1 → Chunk 1
+
+Vector 2 → Chunk 2
+
+For a simple assessment, we can keep them in memory using a Python list.
+
+### Cosine Similarity
+
+Used to measure similarity between two vectors.
+
+```python
+import numpy as np
+
+def cosine_similarity(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+```
+
+**Higher score → more similar/relevant.**
+
+### Simple Vector Index
+
+```python
+class VectorIndex:
+    def __init__(self):
+        self.items = []
+
+    def add(self, chunks):
+        self.items.extend(chunks)
+```
+
+### Search
+
+```python
+def search(self, query_vector, top_k=3):
+    results = []
+
+    for chunk in self.items:
+        score = cosine_similarity(query_vector, chunk["embedding"])
+        results.append((score, chunk))
+
+    results.sort(key=lambda x: x[0], reverse=True)
+
+    return results[:top_k]
+```
+
+### Remember
+
+```text
+Compare → Score → Sort → Top-K
+```
+
+**Key Python:**
+- `np.dot()` → dot product
+- `np.linalg.norm()` → vector magnitude
+- `sort(..., reverse=True)` → highest score first
+- `[:top_k]` → select top results
