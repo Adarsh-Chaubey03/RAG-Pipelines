@@ -208,3 +208,71 @@ Compare → Score → Sort → Top-K
 - `np.linalg.norm()` → vector magnitude
 - `sort(..., reverse=True)` → highest score first
 - `[:top_k]` → select top results
+
+## 6 — Module Separation
+
+
+
+The idea is simply:
+
+> Don't put cleaning, chunking, embedding, and indexing into one huge function. Separate them into modules/functions/classes.
+
+### Remember this structure
+
+```text
+RAG Pipeline
+│
+├── preprocessing.py
+│      ├── clean_text()
+│      └── create_chunks()
+│
+├── embeddings.py
+│      └── create_embeddings()
+│
+├── vector_index.py
+│      └── VectorIndex
+│
+└── main.py
+       └── connects everything
+```
+
+### What each module does
+
+| Module | Responsibility |
+|---|---|
+| `preprocessing.py` | Clean + chunk |
+| `embeddings.py` | Text → vectors |
+| `vector_index.py` | Store + search vectors |
+| `main.py` | Run the pipeline |
+
+### Basic import pattern
+
+```python
+from preprocessing import clean_text, create_chunks
+from embeddings import create_embeddings
+from vector_index import VectorIndex
+```
+
+### Pipeline in `main.py`
+
+```python
+text
+ ↓
+clean_text()
+ ↓
+create_chunks()
+ ↓
+create_embeddings()
+ ↓
+VectorIndex.add()
+ ↓
+VectorIndex.search()
+```
+
+
+```text
+One module → One main responsibility
+```
+
+
+
